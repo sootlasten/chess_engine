@@ -13,21 +13,21 @@ class Game(object):
 
     def screenToBoard(self, coordinates):
         """ Returns the board data structure squre given the screen coordinates. """
-        x = coordinates[0] / 60
-        y = coordinates[1] / 60        
+        x = int(coordinates[0] / 60)
+        y = int(coordinates[1] / 60)
         return y * 16 + x
 
     def boardToScreen(self, square, square_size):
         """ Given a square on the board, returns the corresponding screen coordinates (tuple). """
-        x = (square - ((square / 16) * 16)) * square_size
-        y = (square / 16) * square_size
+        x = (square - (int((square / 16)) * 16)) * square_size
+        y = int((square / 16)) * square_size
         return x, y
 
     def boardToChess(self, square):
-        """ Given a square on the board, returns the corresponding chess notation. """
+        """ Given a square on the boarwd, returns the corresponding chess notation. """
         chess_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
         x = chess_letters[square % 16]
-        y = (square / 16) + 1 
+        y = int((square / 16)) + 1
         return '%s%d' % (x, y)
 
     def checkPromotionPic(self, move, player):

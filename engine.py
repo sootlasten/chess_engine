@@ -288,10 +288,10 @@ class Board(object):
         # Get en passant square if pawn moved 2 squares at the beginning.
         if moved_piece.getType() == PAWN:
             self.move_count = 0
-            if player.getColor() == WHITE and moved_piece.getPosition() / 16 == 6 and \
+            if player.getColor() == WHITE and int(moved_piece.getPosition() / 16) == 6 and \
                move.getOriginSquare() - move.getTargetSquare() == 32:
                 self.passant_square = move.getTargetSquare() + 16
-            elif player.getColor() == BLACK and moved_piece.getPosition() / 16 == 1 and \
+            elif player.getColor() == BLACK and int(moved_piece.getPosition() / 16) == 1 and \
                  move.getTargetSquare() - move.getOriginSquare() == 32:
                 self.passant_square = move.getTargetSquare() - 16
                 
@@ -383,19 +383,19 @@ class Board(object):
 
         elif moved_piece.getType() == PAWN:
             # Pawn promotion.
-            if (moved_piece.getColor() == WHITE and target_square / 16 == 0 and origin_square / 16 == 1) or \
-               (moved_piece.getColor() == BLACK and target_square / 16 == 7) and origin_square / 16 == 6:
+            if (moved_piece.getColor() == WHITE and int(target_square / 16) == 0 and origin_square / 16 == 1) or \
+               (moved_piece.getColor() == BLACK and int(target_square / 16) == 7) and origin_square / 16 == 6:
                     special = PROMOTION
 
             # En passant.
             if (abs(target_square - origin_square) == 15 or abs(target_square - origin_square) == 17) \
                and not captured_piece:
                 if moved_piece.getColor() == WHITE:
-                    if target_square / 16 == 2:
+                    if int(target_square / 16) == 2:
                         special = EN_PASSANT
                         captured_piece = self.getPiece(target_square + 16)
                 else:
-                    if target_square / 16 == 5:
+                    if int(target_square / 16) == 5:
                         special = EN_PASSANT
                         captured_piece = self.getPiece(target_square - 16)
             
@@ -650,7 +650,7 @@ class Rules(object):
                 return False
 
             # Can't move 2 squares if not at the starting position.
-            elif diff == origin_piece.getDelta()[1] and (origin_square / 16 != 1 and origin_square / 16 != 6):
+            elif diff == origin_piece.getDelta()[1] and (int(origin_square / 16) != 1 and int(origin_square / 16) != 6):
                 return False
  
             # Can't move 2 squares ahead if piece is blocking.
